@@ -3,6 +3,13 @@ export const DOMAIN = process.env.REACT_APP_API_ENDPOINT
 console.log(DOMAIN)
 
 export const API = {
+  LOGIN: {
+    config: {
+      url: '/api/v1/login',
+      method: 'POST'
+    },
+    options: { manual: true }
+  },
   GET_RECORDS: {
     config: {
       url: '/api/v1/records',
