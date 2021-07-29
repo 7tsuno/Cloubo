@@ -44,7 +44,7 @@ const Calendar = () => {
   const [target, setTarget] = useState()
   const [, getRecords] = useSender(API.GET_RECORDS)
   const [, deleteRecord] = useSender(API.DELETE_RECORD)
-  const [cashRecords] = useContext(CashRecordsContext)
+  const [cashRecords, setCashRecords] = useContext(CashRecordsContext)
 
   const update = async () => {
     const payload = {
@@ -53,6 +53,7 @@ const Calendar = () => {
     const response = await getRecords(payload)
     const items = response.result.data
     setItems(items)
+    setCashRecords(items)
   }
 
   useEffect(() => {

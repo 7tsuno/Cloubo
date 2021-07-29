@@ -21,7 +21,7 @@ const Report = () => {
   const [monthDispRecords, setMonthDispRecords] = React.useState()
   const [yearDispRecords, setYearDispRecords] = React.useState()
   const [, getRecords] = useSender(API.GET_RECORDS)
-  const [cashRecords] = useContext(CashRecordsContext)
+  const [cashRecords, setCashRecords] = useContext(CashRecordsContext)
 
   const createDispRecoredsMonth = (items) => {
     const categoryBox = {
@@ -98,6 +98,7 @@ const Report = () => {
       const response = await getRecords(payload)
       const datas = response.result.data
       setItems(datas)
+      setCashRecords(datas)
     }
   }, [year])
 

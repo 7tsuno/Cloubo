@@ -24,7 +24,7 @@ const Calculation = () => {
   const [dispRecords, setDispRecords] = React.useState()
   const [dispCalclationRecords, setDispCalcutionRecords] = React.useState()
   const [, getRecords] = useSender(API.GET_RECORDS)
-  const [cashRecords] = useContext(CashRecordsContext)
+  const [cashRecords, setCashRecords] = useContext(CashRecordsContext)
 
   const calculate = (records) => {
     const moveData = []
@@ -105,6 +105,7 @@ const Calculation = () => {
     const response = await getRecords(payload)
     const datas = response.result.data
     setItems(datas)
+    setCashRecords(datas)
   }, [year])
 
   useEffect(() => {
