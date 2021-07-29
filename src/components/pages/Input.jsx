@@ -97,10 +97,10 @@ const Input = () => {
       price: price,
       category: category
     }
-    await postRecord(payload)
-    await createCash()
     handleCloseConrifm()
     setOpenComplete(true)
+    await postRecord(payload)
+    await createCash()
   }
 
   const handleCloseComplete = () => {

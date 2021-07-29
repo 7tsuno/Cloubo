@@ -93,9 +93,9 @@ const Calendar = () => {
   }
 
   const deleteTarget = async () => {
-    await deleteRecord(target.number)
     setOpenConfirm(false)
     setOpenComplete(true)
+    await deleteRecord(target.number)
     await update()
   }
 
