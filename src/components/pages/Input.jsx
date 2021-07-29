@@ -36,14 +36,16 @@ const Input = () => {
   const [, postRecord] = useSender(API.POST_RECORD)
   const [, setCashRecords] = useContext(CashRecordsContext)
 
-  useEffect(async () => {
+  const createCash = async () => {
     const payload = {
       year: dayjs().year()
     }
     const response = await getRecords(payload)
     setLoad(true)
     setCashRecords(response.result.data)
-  }, [])
+  }
+
+  useEffect(createCash, [])
 
   useEffect(async () => {
     if (load) {
@@ -96,6 +98,7 @@ const Input = () => {
       category: category
     }
     await postRecord(payload)
+    await createCash()
     handleCloseConrifm()
     setOpenComplete(true)
   }
