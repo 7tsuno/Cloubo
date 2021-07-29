@@ -69,7 +69,6 @@ const Calendar = () => {
         .filter((item) => item.month === month)
         .map((item) => toDateStr(item.year, item.month, item.day))
         .forEach((date) => dateSet.add(date))
-      console.log(Array.from(dateSet))
       setCheckedDate(Array.from(dateSet))
     }
   }, [items, month])
