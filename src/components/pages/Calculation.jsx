@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useContext } from 'react'
 import dayjs from 'dayjs'
 import MainTemplate from 'components/templates/MainTemplate'
 import { PAGE } from 'constants/page'
@@ -11,15 +11,20 @@ import DataTable from 'components/elements/display/DataTable'
 import Text from 'components/elements/form/Text'
 import FormLine from 'components/elements/layout/FormLine'
 import { toPrice } from 'utils/format'
+import { CashRecordsContext } from 'contexts/CashRecordsContext'
 
 const numberRegex = new RegExp(/^([1-9]\d*)$/)
 
 const Calculation = () => {
   const [date, setDate] = useState(dayjs())
+  const [year, setYear] = useState(dayjs().year())
+  const [month, setMonth] = useState(dayjs().month() + 1)
+  const [items, setItems] = useState([])
   const [payPrice, setPayPrice] = useState(localStorage.getItem('PayPrice') || '')
   const [dispRecords, setDispRecords] = React.useState()
   const [dispCalclationRecords, setDispCalcutionRecords] = React.useState()
   const [, getRecords] = useSender(API.GET_RECORDS)
+  const [cashRecords] = useContext(CashRecordsContext)
 
   const calculate = (records) => {
     const moveData = []
@@ -83,17 +88,29 @@ const Calculation = () => {
     return calculate(userRecords)
   }
 
+  useEffect(() => {
+    setItems(cashRecords)
+  }, [])
+
+  useEffect(() => {
+    const disps = createDispRecoreds(items.filter((item) => item.month === month))
+    setDispRecords(disps.dispRecords)
+    setDispCalcutionRecords(disps.dispCalcutionRecords)
+  }, [items, month, payPrice])
+
   useEffect(async () => {
     const payload = {
-      year: date.year(),
-      month: date.month() + 1
+      year: date.year()
     }
     const response = await getRecords(payload)
     const datas = response.result.data
-    const disps = createDispRecoreds(datas)
-    setDispRecords(disps.dispRecords)
-    setDispCalcutionRecords(disps.dispCalcutionRecords)
-  }, [date, payPrice])
+    setItems(datas)
+  }, [year])
+
+  useEffect(() => {
+    setYear(dayjs(date).year())
+    setMonth(dayjs(date).month() + 1)
+  }, [date])
 
   const changeBackMonth = useCallback(() => {
     setDate(date.subtract(1, 'month'))

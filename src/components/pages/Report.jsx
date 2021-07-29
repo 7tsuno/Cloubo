@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useContext } from 'react'
 import dayjs from 'dayjs'
 import MainTemplate from 'components/templates/MainTemplate'
 import { PAGE } from 'constants/page'
@@ -11,6 +11,7 @@ import { CATEGORY } from 'constants/category'
 import Tab from 'components/elements/display/Tab'
 import DataTable from 'components/elements/display/DataTable'
 import { toPrice } from 'utils/format'
+import { CashRecordsContext } from 'contexts/CashRecordsContext'
 
 const Report = () => {
   const [date, setDate] = useState(dayjs())
@@ -20,6 +21,7 @@ const Report = () => {
   const [monthDispRecords, setMonthDispRecords] = React.useState()
   const [yearDispRecords, setYearDispRecords] = React.useState()
   const [, getRecords] = useSender(API.GET_RECORDS)
+  const [cashRecords] = useContext(CashRecordsContext)
 
   const createDispRecoredsMonth = (items) => {
     const categoryBox = {
@@ -83,6 +85,10 @@ const Report = () => {
     setYear(date.year())
     setMonth(date.month())
   }, [date])
+
+  useEffect(() => {
+    setItems(cashRecords)
+  }, [])
 
   useEffect(async () => {
     if (year) {

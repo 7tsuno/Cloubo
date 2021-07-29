@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useContext } from 'react'
 import dayjs from 'dayjs'
 import MainTemplate from 'components/templates/MainTemplate'
 import { PAGE } from 'constants/page'
@@ -13,6 +13,7 @@ import Button from 'components/elements/buttons/Button'
 import { TYPE } from 'constants/theme'
 import Dialog from 'components/elements/modals/Dialog'
 import { toPrice } from 'utils/format'
+import { CashRecordsContext } from 'contexts/CashRecordsContext'
 
 const useStyles = makeStyles((theme) => ({
   listArea: {
@@ -36,31 +37,41 @@ const Calendar = () => {
   const [date, setDate] = useState(dayjs())
   const [year, setYear] = useState(dayjs().year())
   const [month, setMonth] = useState(dayjs().month() + 1)
-  const [items, setItems] = React.useState([])
-  const [checkedDate, setCheckedDate] = React.useState([])
-  const [openConfirm, setOpenConfirm] = React.useState(false)
-  const [openComplete, setOpenComplete] = React.useState(false)
-  const [target, setTarget] = React.useState()
+  const [items, setItems] = useState([])
+  const [checkedDate, setCheckedDate] = useState([])
+  const [openConfirm, setOpenConfirm] = useState(false)
+  const [openComplete, setOpenComplete] = useState(false)
+  const [target, setTarget] = useState()
   const [, getRecords] = useSender(API.GET_RECORDS)
   const [, deleteRecord] = useSender(API.DELETE_RECORD)
+  const [cashRecords] = useContext(CashRecordsContext)
 
   const update = async () => {
     const payload = {
-      year: year,
-      month: month
+      year: year
     }
     const response = await getRecords(payload)
     const items = response.result.data
     setItems(items)
-
-    const dateSet = new Set()
-    items
-      .map((item) => toDateStr(item.year, item.month, item.day))
-      .forEach((date) => dateSet.add(date))
-    setCheckedDate(Array.from(dateSet))
   }
 
-  useEffect(update, [year, month])
+  useEffect(() => {
+    setItems(cashRecords)
+  }, [])
+
+  useEffect(update, [year])
+
+  useEffect(() => {
+    if (items) {
+      const dateSet = new Set()
+      items
+        .filter((item) => item.month === month)
+        .map((item) => toDateStr(item.year, item.month, item.day))
+        .forEach((date) => dateSet.add(date))
+      console.log(Array.from(dateSet))
+      setCheckedDate(Array.from(dateSet))
+    }
+  }, [items, month])
 
   const changeDate = useCallback((date) => {
     setDate(date)

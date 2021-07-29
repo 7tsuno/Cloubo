@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useContext } from 'react'
 import dayjs from 'dayjs'
 import FormLine from 'components/elements/layout/FormLine'
 import MainTemplate from 'components/templates/MainTemplate'
@@ -17,6 +17,7 @@ import { useSender } from 'utils/axios'
 import { API } from 'constants/api'
 import Accordion from 'components/elements/display/Accordion'
 import { toPrice } from 'utils/format'
+import { CashRecordsContext } from 'contexts/CashRecordsContext'
 
 const numberRegex = new RegExp(/^([1-9]\d*)$/)
 
@@ -29,19 +30,32 @@ const Input = () => {
   const [category, setCategory] = useState(CATEGORY[0])
   const [openConfirm, setOpenConfirm] = React.useState(false)
   const [openComplete, setOpenComplete] = React.useState(false)
+  const [load, setLoad] = React.useState(false)
   const [dayItems, setDayItems] = React.useState([])
   const [, getRecords] = useSender(API.GET_RECORDS)
   const [, postRecord] = useSender(API.POST_RECORD)
+  const [, setCashRecords] = useContext(CashRecordsContext)
 
   useEffect(async () => {
     const payload = {
-      year: date.year(),
-      month: date.month() + 1,
-      day: date.date()
+      year: dayjs().year()
     }
     const response = await getRecords(payload)
-    setDayItems(response.result.data)
-  }, [date])
+    setLoad(true)
+    setCashRecords(response.result.data)
+  }, [])
+
+  useEffect(async () => {
+    if (load) {
+      const payload = {
+        year: date.year(),
+        month: date.month() + 1,
+        day: date.date()
+      }
+      const response = await getRecords(payload)
+      setDayItems(response.result.data)
+    }
+  }, [date, load])
 
   const changeDate = useCallback((date) => {
     setDate(date)

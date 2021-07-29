@@ -4,6 +4,7 @@ import { ThemeContext } from 'contexts/ThemeContext'
 import App from 'App'
 import { COLORS, TYPE } from 'constants/theme'
 import { JwtContext } from 'contexts/JwtContext'
+import { CashRecordsContext } from 'contexts/CashRecordsContext'
 
 const AppWrapper = () => {
   const type = localStorage.getItem('themeType') || TYPE.LIGHT
@@ -22,11 +23,14 @@ const AppWrapper = () => {
   })
   const themeContext = useState(initialTheme)
   const jwtContexts = useState('')
+  const cashRecordsContext = useState([])
 
   return (
     <JwtContext.Provider value={jwtContexts}>
       <ThemeContext.Provider value={themeContext}>
-        <App />
+        <CashRecordsContext.Provider value={cashRecordsContext}>
+          <App />
+        </CashRecordsContext.Provider>
       </ThemeContext.Provider>
     </JwtContext.Provider>
   )
