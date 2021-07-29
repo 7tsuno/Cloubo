@@ -8,9 +8,13 @@ import { BottomNavigation, BottomNavigationAction, Divider } from '@material-ui/
 import { PAGE } from 'constants/page'
 import { useHistory } from 'react-router'
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   footer: {
     marginTop: 'auto'
+  },
+  footerInner: {
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(2)
   }
 }))
 
@@ -26,6 +30,7 @@ const FooterArea = ({ page }) => {
           history.push(newValue)
         }}
         showLabels
+        className={classes.footerInner}
       >
         <BottomNavigationAction value={PAGE.input.path} icon={<InputIcon />} />
         <BottomNavigationAction value={PAGE.calender.path} icon={<CalenderIcon />} />

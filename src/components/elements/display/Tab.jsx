@@ -21,7 +21,7 @@ const Tab = ({ items }) => {
       </Tabs>
       {items.map((item, index) => (
         <div key={index} role="tabpanel" hidden={value !== index}>
-          {value === index && <Box p={3}>{item.content}</Box>}
+          {value === index && <Box p={1}>{item.content}</Box>}
         </div>
       ))}
     </>
