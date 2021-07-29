@@ -42,8 +42,8 @@ const Calendar = () => {
   const [openConfirm, setOpenConfirm] = useState(false)
   const [openComplete, setOpenComplete] = useState(false)
   const [target, setTarget] = useState()
-  const [, getRecords] = useSender(API.GET_RECORDS)
-  const [, deleteRecord] = useSender(API.DELETE_RECORD)
+  const [getRecords] = useSender(API.GET_RECORDS)
+  const [deleteRecord] = useSender(API.DELETE_RECORD)
   const [cashRecords, setCashRecords] = useContext(CashRecordsContext)
 
   const update = async () => {

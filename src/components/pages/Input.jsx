@@ -32,8 +32,8 @@ const Input = () => {
   const [openComplete, setOpenComplete] = React.useState(false)
   const [load, setLoad] = React.useState(false)
   const [dayItems, setDayItems] = React.useState([])
-  const [, getRecords] = useSender(API.GET_RECORDS)
-  const [, postRecord] = useSender(API.POST_RECORD)
+  const [getRecords] = useSender(API.GET_RECORDS)
+  const [postRecord] = useSender(API.POST_RECORD)
   const [, setCashRecords] = useContext(CashRecordsContext)
 
   const createCash = async () => {

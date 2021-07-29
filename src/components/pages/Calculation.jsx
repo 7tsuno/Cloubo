@@ -23,7 +23,7 @@ const Calculation = () => {
   const [payPrice, setPayPrice] = useState(localStorage.getItem('PayPrice') || '')
   const [dispRecords, setDispRecords] = React.useState()
   const [dispCalclationRecords, setDispCalcutionRecords] = React.useState()
-  const [, getRecords] = useSender(API.GET_RECORDS)
+  const [getRecords] = useSender(API.GET_RECORDS)
   const [cashRecords, setCashRecords] = useContext(CashRecordsContext)
 
   const calculate = (records) => {

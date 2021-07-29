@@ -20,7 +20,7 @@ const Report = () => {
   const [items, setItems] = useState()
   const [monthDispRecords, setMonthDispRecords] = React.useState()
   const [yearDispRecords, setYearDispRecords] = React.useState()
-  const [, getRecords] = useSender(API.GET_RECORDS)
+  const [getRecords] = useSender(API.GET_RECORDS)
   const [cashRecords, setCashRecords] = useContext(CashRecordsContext)
 
   const createDispRecoredsMonth = (items) => {

@@ -37,7 +37,7 @@ const Login = () => {
   const classes = useStyles()
   const [user, setUser] = useState('')
   const [pass, setPass] = useState('')
-  const [, login] = useSender(API.LOGIN)
+  const [login] = useSender(API.LOGIN)
   const [, setStorageJwt] = useContext(JwtContext)
   const history = useHistory()
 
