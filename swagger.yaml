@@ -1,0 +1,130 @@
+openapi: '3.0.0'
+info:
+  description: 'kakeibo_web'
+  version: '1.0.0'
+paths:
+  /api/v1/records:
+    get:
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: 'object'
+              examples:
+                example:
+                  value:
+                    [
+                      {
+                        'number': 1,
+                        'year': '2021',
+                        'month': '4',
+                        'day': '15',
+                        'memo': 'memo',
+                        'price': 3000,
+                        'category': '食費',
+                        'user': 'user1'
+                      },
+                      {
+                        'number': 2,
+                        'year': '2021',
+                        'month': '7',
+                        'day': '15',
+                        'memo': 'memo',
+                        'price': 3000,
+                        'category': '食費',
+                        'user': 'user1'
+                      },
+                      {
+                        'number': 3,
+                        'year': '2021',
+                        'month': '5',
+                        'day': '15',
+                        'memo': 'memo',
+                        'price': 3000,
+                        'category': '食費',
+                        'user': 'user1'
+                      },
+                      {
+                        'number': 4,
+                        'year': '2021',
+                        'month': '7',
+                        'day': '27',
+                        'memo': 'memo',
+                        'price': 3000,
+                        'category': '食費',
+                        'user': 'user1'
+                      },
+                      {
+                        'number': 4,
+                        'year': '2021',
+                        'month': '7',
+                        'day': '27',
+                        'memo': 'memo',
+                        'price': 8000,
+                        'category': '食費',
+                        'user': 'user1'
+                      },
+                      {
+                        'number': 5,
+                        'year': '2021',
+                        'month': '7',
+                        'day': '29',
+                        'memo': '',
+                        'price': 3100,
+                        'category': '食費',
+                        'user': 'user2'
+                      },
+                      {
+                        'number': 5,
+                        'year': '2021',
+                        'month': '8',
+                        'day': '29',
+                        'memo': '',
+                        'price': 3100,
+                        'category': '食費',
+                        'user': 'user2'
+                      },
+                      {
+                        'number': 5,
+                        'year': '2021',
+                        'month': '6',
+                        'day': '29',
+                        'memo': '',
+                        'price': 3100,
+                        'category': '食費',
+                        'user': 'user2'
+                      }
+                    ]
+
+        400:
+          description: 入力チェックエラー
+        500:
+          description: サーバ処理エラー
+    post:
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: 'object'
+
+        400:
+          description: 入力チェックエラー
+        500:
+          description: サーバ処理エラー
+    delete:
+      responses:
+        200:
+          description: 成功
+          content:
+            application/json:
+              schema:
+                type: 'object'
+
+        400:
+          description: 入力チェックエラー
+        500:
+          description: サーバ処理エラー
