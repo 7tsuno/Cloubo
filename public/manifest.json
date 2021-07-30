@@ -1,7 +1,7 @@
 {
   "theme_color": "#4458b2",
   "background_color": "#4458b2",
-  "display": "browser",
+  "display": "standalone",
   "scope": "/",
   "start_url": "/",
   "name": "Kakeibow",
