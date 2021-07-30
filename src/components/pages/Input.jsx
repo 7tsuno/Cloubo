@@ -104,7 +104,6 @@ const Input = () => {
   }
 
   const handleCloseComplete = () => {
-    setDate(dayjs())
     setPrice('')
     setMemo('')
     setCategory(CATEGORY[0])
