@@ -50,8 +50,8 @@ const Calendar = () => {
     const payload = {
       year: year
     }
-    const response = await getRecords(payload)
-    const items = response.result.data
+    const result = await getRecords(payload)
+    const items = result.data
     setItems(items)
     setCashRecords(items)
   }

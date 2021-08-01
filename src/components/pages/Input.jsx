@@ -42,7 +42,7 @@ const Input = () => {
     }
     const response = await getRecords(payload)
     setLoad(true)
-    setCashRecords(response.result.data)
+    setCashRecords(response.data)
   }
 
   useEffect(createCash, [])
@@ -55,7 +55,7 @@ const Input = () => {
         day: date.date()
       }
       const response = await getRecords(payload)
-      setDayItems(response.result.data)
+      setDayItems(response.data)
     }
   }, [date, load])
 

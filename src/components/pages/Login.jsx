@@ -48,8 +48,11 @@ const Login = () => {
   }, [])
 
   const next = async () => {
-    await login({ user, pass })
-    history.push(PAGE.input.path)
+    const result = await login({ user, pass })
+    if (result.data) {
+      localStorage.setItem('token', result.data.token)
+      history.push(PAGE.input.path)
+    }
   }
 
   return (

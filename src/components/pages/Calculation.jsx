@@ -102,8 +102,8 @@ const Calculation = () => {
     const payload = {
       year: date.year()
     }
-    const response = await getRecords(payload)
-    const datas = response.result.data
+    const result = await getRecords(payload)
+    const datas = result.data
     setItems(datas)
     setCashRecords(datas)
   }, [year])

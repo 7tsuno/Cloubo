@@ -2,16 +2,19 @@ import axios from 'axios'
 import { DOMAIN } from 'constants/api'
 import { PAGE } from 'constants/page'
 
-axios.defaults.withCredentials = true
-
-const baseOptions = {
-  baseURL: DOMAIN,
-  headers: {
-    'Content-Type': 'application/json',
-    'X-Requested-With': 'XMLHttpRequest'
+axios.defaults.baseURL = DOMAIN
+axios.defaults.headers['Content-Type'] = 'application/json'
+axios.defaults.headers['X-Requested-With'] = 'XMLHttpRequest'
+axios.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('token')
+    config.headers.authorization = `Bearer ${token}`
+    return config
   },
-  responseType: 'json'
-}
+  (error) => {
+    return Promise.reject(error)
+  }
+)
 
 const getOptionsWithPayload = (api, payload) => {
   switch (api.config.method) {
@@ -35,15 +38,12 @@ export const useSender = (api) => {
     const options = getOptionsWithPayload(api, payload)
     try {
       const result = await axios({
-        ...baseOptions,
         ...api.config,
         ...options
       })
-      return { result, error: {} }
+      return result
     } catch (error) {
-      console.error(error.toString())
       window.location.href = PAGE.login.path
-      return { result: {}, error }
     }
   }
 
