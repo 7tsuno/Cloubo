@@ -121,13 +121,15 @@ const Calendar = () => {
                 toDateStr(item.year, item.month, item.day) === dayjs(date).format('YYYY/MM/DD')
             )
             .map((item, index) => {
-              return [
+              const line = [
                 `${index + 1}.`,
                 item.user,
                 item.category,
                 item.memo,
-                `${toPrice(item.price)}円`,
-                {
+                `${toPrice(item.price)}円`
+              ]
+              if (item.mine) {
+                line.push({
                   type: 'obj',
                   value: (
                     <Button
@@ -137,8 +139,9 @@ const Calendar = () => {
                       削除
                     </Button>
                   )
-                }
-              ]
+                })
+              }
+              return line
             })}
         />
       </div>

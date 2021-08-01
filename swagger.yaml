@@ -1,17 +1,58 @@
 openapi: '3.0.0'
 info:
-  description: 'kakeibo_web'
+  description: 'クラウドで管理する家計簿'
   version: '1.0.0'
+  title: Kakeibow
 paths:
   /api/v1/records:
     get:
+      summary: 家計簿のレコードを取得する
+      tags:
+        - record
+      parameters:
+        - $ref: '#/components/parameters/Year'
+        - $ref: '#/components/parameters/Month'
+        - $ref: '#/components/parameters/Day'
       responses:
         200:
-          description: 成功
+          description: レコード一覧
           content:
             application/json:
               schema:
                 type: 'object'
+                properties:
+                  number:
+                    type: integer
+                    format: int64
+                    description: レコード番号
+                  year:
+                    type: integer
+                    format: int64
+                    description: 年
+                  month:
+                    type: integer
+                    format: int64
+                    description: 月
+                  day:
+                    type: integer
+                    format: int64
+                    description: 日
+                  price:
+                    type: integer
+                    format: int64
+                    description: 金額
+                  category:
+                    type: string
+                    description: カテゴリ
+                  memo:
+                    type: string
+                    description: メモ
+                  user:
+                    type: string
+                    description: ユーザ名
+                  mine:
+                    type: boolean
+                    description: 取得ユーザのレコードである場合は true / 別ユーザのレコードである場合はfalse
               examples:
                 example:
                   value:
@@ -24,7 +65,8 @@ paths:
                         'memo': 'memo',
                         'price': 3000,
                         'category': '食費',
-                        'user': 'user1'
+                        'user': 'user1',
+                        'mine': true
                       },
                       {
                         'number': 2,
@@ -34,97 +76,129 @@ paths:
                         'memo': 'memo',
                         'price': 3000,
                         'category': '食費',
-                        'user': 'user1'
-                      },
-                      {
-                        'number': 3,
-                        'year': '2021',
-                        'month': '5',
-                        'day': '15',
-                        'memo': 'memo',
-                        'price': 3000,
-                        'category': '食費',
-                        'user': 'user1'
-                      },
-                      {
-                        'number': 4,
-                        'year': '2021',
-                        'month': '7',
-                        'day': '27',
-                        'memo': 'memo',
-                        'price': 3000,
-                        'category': '食費',
-                        'user': 'user1'
-                      },
-                      {
-                        'number': 4,
-                        'year': '2021',
-                        'month': '7',
-                        'day': '27',
-                        'memo': 'memo',
-                        'price': 8000,
-                        'category': '食費',
-                        'user': 'user1'
-                      },
-                      {
-                        'number': 5,
-                        'year': '2021',
-                        'month': '7',
-                        'day': '29',
-                        'memo': '',
-                        'price': 3100,
-                        'category': '食費',
-                        'user': 'user2'
-                      },
-                      {
-                        'number': 5,
-                        'year': '2021',
-                        'month': '8',
-                        'day': '29',
-                        'memo': '',
-                        'price': 3100,
-                        'category': '食費',
-                        'user': 'user2'
-                      },
-                      {
-                        'number': 5,
-                        'year': '2021',
-                        'month': '6',
-                        'day': '29',
-                        'memo': '',
-                        'price': 3100,
-                        'category': '食費',
-                        'user': 'user2'
+                        'user': 'user2',
+                        'mine': false
                       }
                     ]
 
-        400:
-          description: 入力チェックエラー
-        500:
-          description: サーバ処理エラー
+        401:
+          description: 認証エラー
     post:
+      summary: 家計簿のレコードを登録する
+      tags:
+        - record
+      requestBody:
+        description: 家計簿のレコード
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                year:
+                  type: integer
+                  format: int64
+                  description: 年
+                  example: 2025
+                month:
+                  type: integer
+                  format: int64
+                  description: 月
+                  example: 4
+                day:
+                  type: integer
+                  format: int64
+                  description: 日
+                  example: 1
+                price:
+                  type: integer
+                  format: int64
+                  description: 金額
+                  example: 350
+                category:
+                  type: string
+                  description: カテゴリ
+                  example: 'その他'
+                memo:
+                  type: string
+                  description: メモ
+                  example: '駐車場料金'
       responses:
         200:
           description: 成功
-          content:
-            application/json:
-              schema:
-                type: 'object'
-
         400:
           description: 入力チェックエラー
-        500:
-          description: サーバ処理エラー
+        401:
+          description: 認証エラー
     delete:
+      summary: 家計簿のレコードを削除する
+      tags:
+        - record
+      parameters:
+        - name: number
+          in: path
+          description: レコード番号
+          required: true
+          schema:
+            type: integer
       responses:
         200:
-          description: 成功
+          description: 削除結果
           content:
             application/json:
               schema:
                 type: 'object'
+                properties:
+                  delete:
+                    type: boolean
+                    description: 削除が行われたらtrue / 行われなかったらfalse
+        401:
+          description: 認証エラー
+  /api/v1/login:
+    post:
+      summary: ログインを実行する
+      tags:
+        - login
+      requestBody:
+        description: ログイン情報
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: string
+                pass:
+                  type: string
+      responses:
+        200:
+          description: 成功
 
-        400:
-          description: 入力チェックエラー
-        500:
-          description: サーバ処理エラー
+components:
+  parameters:
+    Year:
+      name: year
+      in: query
+      description: 対象の家計簿レコードの年(YYYY)
+      required: false
+      schema:
+        type: integer
+        format: int64
+        example: 2099
+    Month:
+      name: month
+      in: query
+      description: 対象の家計簿レコードの月(1 ～ 12)
+      required: false
+      schema:
+        type: integer
+        format: int64
+        example: 12
+    Day:
+      name: day
+      in: query
+      description: 対象の家計簿レコードの日(1 ～ 31)
+      required: false
+      schema:
+        type: integer
+        format: int64
+        example: 25

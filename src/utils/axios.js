@@ -1,8 +1,8 @@
 import axios from 'axios'
 import { DOMAIN } from 'constants/api'
 import { PAGE } from 'constants/page'
-import { JwtContext } from 'contexts/JwtContext'
-import { useContext } from 'react'
+
+axios.defaults.withCredentials = true
 
 const baseOptions = {
   baseURL: DOMAIN,
@@ -31,22 +31,18 @@ const getOptionsWithPayload = (api, payload) => {
 }
 
 export const useSender = (api) => {
-  const [jwt] = useContext(JwtContext)
   const sender = async (payload) => {
     const options = getOptionsWithPayload(api, payload)
     try {
       const result = await axios({
         ...baseOptions,
         ...api.config,
-        headers: {
-          Authorization: jwt
-        },
         ...options
       })
       return { result, error: {} }
     } catch (error) {
       console.error(error.toString())
-      window.location.href = PAGE.error.path
+      window.location.href = PAGE.login.path
       return { result: {}, error }
     }
   }
