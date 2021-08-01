@@ -1,2 +1,2 @@
-[context.environment]
-  REACT_APP_API_ENDPOINT = 'APIのエンドポイント'
+[template.environment]
+  REACT_APP_API_ENDPOINT = "Change me for API domain like https://example.com"
