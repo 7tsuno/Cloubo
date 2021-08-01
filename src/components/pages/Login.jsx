@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
 import CssBaseline from '@material-ui/core/CssBaseline'
@@ -9,7 +9,6 @@ import Container from '@material-ui/core/Container'
 import Text from 'components/elements/form/Text'
 import { useSender } from 'utils/axios'
 import { API } from 'constants/api'
-import { JwtContext } from 'contexts/JwtContext'
 import { PAGE } from 'constants/page'
 import { useHistory } from 'react-router'
 
@@ -38,7 +37,6 @@ const Login = () => {
   const [user, setUser] = useState('')
   const [pass, setPass] = useState('')
   const [login] = useSender(API.LOGIN)
-  const [, setStorageJwt] = useContext(JwtContext)
   const history = useHistory()
 
   const changeUser = useCallback((event) => {
@@ -50,12 +48,8 @@ const Login = () => {
   }, [])
 
   const next = async () => {
-    const res = await login({ user, pass })
-    if (res.result.data) {
-      setStorageJwt(res.result.data.token)
-      localStorage.setItem('token', res.result.data.token)
-      history.push(PAGE.input.path)
-    }
+    await login({ user, pass })
+    history.push(PAGE.input.path)
   }
 
   return (
