@@ -1,2 +1,2 @@
-[template.environment]
+[context.environment]
   REACT_APP_API_ENDPOINT = 'APIのエンドポイント'
