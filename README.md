@@ -36,4 +36,6 @@
 ## Usage
 
 1. .env で REACT_APP_API_ENDPOINT=`APIのエンドポイント`を設定しデプロイする
-2. swagger.xml を参考に API サーバを作る
+   または、<a href="https://app.netlify.com/start/deploy?repository=https://github.com/7tsuno/kakeibo_web">
+   <img src="https://www.netlify.com/img/deploy/button.svg" title="Deploy to Netlify">
+   </a>
