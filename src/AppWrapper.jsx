@@ -4,6 +4,8 @@ import { ThemeContext } from 'contexts/ThemeContext'
 import App from 'App'
 import { COLORS, TYPE } from 'constants/theme'
 import { CashRecordsContext } from 'contexts/CashRecordsContext'
+import { Auth0Provider } from '@auth0/auth0-react'
+import { AUTH } from 'constants/auth'
 
 const AppWrapper = () => {
   const type = localStorage.getItem('themeType') || TYPE.LIGHT
@@ -23,11 +25,20 @@ const AppWrapper = () => {
   const themeContext = useState(initialTheme)
   const cashRecordsContext = useState([])
 
+  const providerConfig = {
+    domain: AUTH.domain,
+    clientId: AUTH.clientId,
+    audience: AUTH.audience,
+    redirectUri: window.location.origin
+  }
+
   return (
     <ThemeContext.Provider value={themeContext}>
-      <CashRecordsContext.Provider value={cashRecordsContext}>
-        <App />
-      </CashRecordsContext.Provider>
+      <Auth0Provider {...providerConfig}>
+        <CashRecordsContext.Provider value={cashRecordsContext}>
+          <App />
+        </CashRecordsContext.Provider>
+      </Auth0Provider>
     </ThemeContext.Provider>
   )
 }

@@ -1,2 +1,5 @@
 [template.environment]
-  REACT_APP_API_ENDPOINT = "Change me for API domain like https://example.com"
+  REACT_APP_API_ENDPOINT = "Change me for API domain"
+  REACT_APP_AUTH_DOMAIN = "Change me for Auth0 domain"
+  REACT_APP_AUTH_CLIENT_ID = "Change me for Auth0 Client ID"
+  REACT_APP_AUTH_AUDIENCE = "Change me for Auth0 API Audience"

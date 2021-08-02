@@ -8,10 +8,26 @@ import Report from 'components/pages/Report'
 import { ThemeProvider } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { ThemeContext } from 'contexts/ThemeContext'
-import Login from 'components/pages/Login'
+import Error from 'components/pages/Error'
+import { useAuth0 } from '@auth0/auth0-react'
+import Loading from 'components/elements/display/Loading'
 
 const App = () => {
   const [theme] = useContext(ThemeContext)
+  const { error, isAuthenticated, isLoading, loginWithRedirect } = useAuth0()
+
+  if (error) {
+    return <Error message={error.message} />
+  }
+
+  if (isLoading) {
+    return <Loading />
+  }
+
+  if (!isAuthenticated) {
+    loginWithRedirect()
+    return <div></div>
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -29,8 +45,8 @@ const App = () => {
         <Route path={PAGE.report.path} exact>
           <Report />
         </Route>
-        <Route path={PAGE.login.path}>
-          <Login />
+        <Route>
+          <Error message={'This is Unhandled Error.'} />
         </Route>
       </Switch>
     </ThemeProvider>

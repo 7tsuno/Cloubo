@@ -18,9 +18,5 @@ export const PAGE = {
   error: {
     path: '/error',
     name: 'エラー'
-  },
-  login: {
-    path: '/login',
-    name: 'ログイン'
   }
 }

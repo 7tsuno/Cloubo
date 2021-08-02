@@ -11,6 +11,7 @@
 
 - React(Hooks)
 - Material-ui
+- Auth0
 
 ## Function
 
@@ -23,7 +24,7 @@
 - [x] ユーザ間の精算額表示
 - [ ] ログイン機能
   - [x] ログイン・認証の作成
-  - [ ] パスワード変更
+  - [x] Auth0 でのログイン
 - [x] テーマ・カラーの変更
 - [×] API 仕様書(swagger)の作成
 - [ ] PWA 化
@@ -31,13 +32,14 @@
   - [x] アイコン
   - [ ] オフライン起動
 - [ ] 月ごとの合計金額をグラフ化して目標値との比較
+- [ ] 定期データの登録機能
 - [ ] 一括精算の管理
 
 ## Usage
 
-1. swagger.xmlを参考にAPIサーバをお好みの方法で作成する
-1. .env で REACT_APP_API_ENDPOINT=`APIのエンドポイント`を設定しデプロイする  
-   または、  
+1. Auth0 で Application, API を作成する
+1. swagger.xml を参考に API サーバをお好みの方法で作成する
+1. Netlify でデプロイ
    <a href="https://app.netlify.com/start/deploy?repository=https://github.com/7tsuno/kakeibo_web">
    <img src="https://www.netlify.com/img/deploy/button.svg" title="Deploy to Netlify">
    </a>
