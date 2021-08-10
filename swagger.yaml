@@ -66,7 +66,7 @@ paths:
                         'price': 3000,
                         'category': '食費',
                         'user': 'user1',
-                        'mine': true
+                        'mine': true,
                       },
                       {
                         'number': 2,
@@ -77,8 +77,8 @@ paths:
                         'price': 3000,
                         'category': '食費',
                         'user': 'user2',
-                        'mine': false
-                      }
+                        'mine': false,
+                      },
                     ]
 
         401:
@@ -153,33 +153,6 @@ paths:
                     description: 削除が行われたらtrue / 行われなかったらfalse
         401:
           description: 認証エラー
-  /api/v1/login:
-    post:
-      summary: ログインを実行する
-      tags:
-        - login
-      requestBody:
-        description: ログイン情報
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                user:
-                  type: string
-                pass:
-                  type: string
-      responses:
-        200:
-          description: 成功
-          content:
-            application/json:
-              schema:
-                type: 'object'
-                properties:
-                  token:
-                    type: string
-                    description: jwt
 
 components:
   parameters:

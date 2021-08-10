@@ -1,4 +1,4 @@
-# Kakeibow
+# Cloubo
 
 ![kakeibo_web](https://user-images.githubusercontent.com/24493250/127496373-005c6969-7b47-482c-8690-9168fb77786f.gif)
 
@@ -9,7 +9,7 @@
 
 ## Architect
 
-- React(Hooks)
+- React(Hooks/TypeScript/Redux Toolkit)
 - Material-ui
 - Auth0
 
@@ -22,15 +22,16 @@
 - [x] 月の合計金額のリスト
 - [x] ユーザの支払額表示
 - [x] ユーザ間の精算額表示
-- [ ] ログイン機能
+- [x] ログイン機能
   - [x] ログイン・認証の作成
   - [x] Auth0 でのログイン
 - [x] テーマ・カラーの変更
-- [×] API 仕様書(swagger)の作成
+- [x] API 仕様書(swagger)の作成
 - [ ] PWA 化
   - [x] フルスクリーン表示
   - [x] アイコン
   - [ ] オフライン起動
+- [x] Redux/Typescript にリファクタ
 - [ ] 月ごとの合計金額をグラフ化して目標値との比較
 - [ ] 定期データの登録機能
 - [ ] 一括精算の管理

@@ -4,8 +4,8 @@
   "display": "standalone",
   "scope": "/",
   "start_url": "/",
-  "name": "Kakeibow",
-  "short_name": "Kakeibow",
+  "name": "Cloubo",
+  "short_name": "Cloubo",
   "icons": [
     {
       "src": "/icon/icon-192x192.png",
