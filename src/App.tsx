@@ -16,17 +16,13 @@ const App: React.FC = () => {
   if (error) {
     return <Error message={error.message} />
   }
-  if (isLoading) {
+  if (isLoading || !isAuthenticated) {
     return (
       <>
         <CssBaseline />
         <Loading />
       </>
     )
-  }
-  if (!isAuthenticated) {
-    loginWithRedirect()
-    return <div>Login Redirect</div>
   }
 
   return (
