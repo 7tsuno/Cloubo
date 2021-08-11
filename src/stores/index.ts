@@ -21,6 +21,7 @@ const reducer = combineReducers({
 
 const store = configureStore({
   reducer,
+  devTools: process.env.NODE_ENV === 'development',
   preloadedState: load(),
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(save()),
 })
