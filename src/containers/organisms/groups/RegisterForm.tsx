@@ -40,21 +40,31 @@ const RegisterFormContainer: React.FC = () => {
 
   const dayItems = useMemo(
     () =>
-      records.filter(
-        (record: Record) =>
-          dayjs()
-            .year(year)
-            .month(month - 1)
-            .date(day)
-            .format('YYYY/MM/DD') ===
-          dayjs()
-            .year(record.year)
-            .month(record.month - 1)
-            .date(record.day)
-            .format('YYYY/MM/DD')
+      records.filter((record: Record) =>
+        dayjs()
+          .year(year)
+          .month(month - 1)
+          .date(day)
+          .isSame(
+            dayjs()
+              .year(record.year)
+              .month(record.month - 1)
+              .date(record.day),
+            'day'
+          )
       ),
     [year, month, day, records]
   )
+
+  const notToday = useMemo(() => {
+    return !dayjs().isSame(
+      dayjs()
+        .year(year)
+        .month(month - 1)
+        .date(day),
+      'day'
+    )
+  }, [year, month, day])
 
   const changeDate = useCallback((date: dayjs.Dayjs | null) => {
     if (date) {
@@ -66,6 +76,16 @@ const RegisterFormContainer: React.FC = () => {
         })
       )
     }
+  }, [])
+
+  const toToday = useCallback(() => {
+    dispatch(
+      setDate({
+        year: dayjs().year(),
+        month: dayjs().month() + 1,
+        day: dayjs().date(),
+      })
+    )
   }, [])
 
   const changeCategory = useCallback((value: string) => {
@@ -145,6 +165,8 @@ const RegisterFormContainer: React.FC = () => {
     handleClose,
     register,
     clearClick,
+    notToday,
+    toToday,
   }
 
   return <RegisterForm {...props} />

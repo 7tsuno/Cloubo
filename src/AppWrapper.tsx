@@ -6,6 +6,7 @@ import { AUTH } from 'constants/auth'
 import Error from 'components/pages/Error'
 import { useAppSelector } from 'app/hooks'
 import { selectTheme } from 'stores/theme'
+import { orange, pink } from '@material-ui/core/colors'
 
 const AppWrapper: React.FC = () => {
   const { mode, color, shade } = useAppSelector(selectTheme)
@@ -14,6 +15,9 @@ const AppWrapper: React.FC = () => {
     palette: {
       primary: {
         main: color.colorList[shade],
+      },
+      secondary: {
+        main: color.colorList !== pink ? pink[500] : orange[500],
       },
       type: mode,
     },

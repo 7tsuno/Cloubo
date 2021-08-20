@@ -6,6 +6,7 @@ import {
   MuiPickersUtilsProvider,
   DatePicker as DatePickerMUI,
 } from '@material-ui/pickers'
+import { TextFieldProps, TextField, withStyles, Theme } from '@material-ui/core'
 
 class ExtendedUtils extends DateUtils {
   getCalendarHeaderText(date: dayjs.Dayjs) {
@@ -16,7 +17,38 @@ class ExtendedUtils extends DateUtils {
   }
 }
 
-const DatePicker: React.FC<DatePickerProps> = ({ label, onChange, value }) => {
+const styles = (theme: Theme) => ({
+  root: {
+    '& .MuiInput-underline:before': {
+      borderBottomColor: theme.palette.warning.main,
+    },
+    '& .MuiFormLabel-root': {
+      color: theme.palette.warning.main,
+    },
+  },
+})
+
+const AccentTextField = withStyles(styles)(TextField)
+
+const AccentInput: React.FC<TextFieldProps> = (props: TextFieldProps): any => {
+  return (
+    <AccentTextField
+      type="text"
+      label={props.label}
+      onClick={props.onClick}
+      value={props.value}
+      onChange={props.onChange}
+      fullWidth
+    />
+  )
+}
+
+const DatePicker: React.FC<DatePickerProps> = ({
+  label,
+  onChange,
+  value,
+  accent,
+}) => {
   return (
     <MuiPickersUtilsProvider utils={ExtendedUtils} locale={ja}>
       <DatePickerMUI
@@ -24,6 +56,8 @@ const DatePicker: React.FC<DatePickerProps> = ({ label, onChange, value }) => {
         format="YYYY/MM/DD"
         value={value}
         onChange={onChange}
+        fullWidth
+        TextFieldComponent={accent ? AccentInput : undefined}
       />
     </MuiPickersUtilsProvider>
   )
@@ -33,6 +67,7 @@ export interface DatePickerProps {
   label: string
   onChange: (date: dayjs.Dayjs | null) => void
   value: dayjs.Dayjs
+  accent?: boolean
 }
 
 export default React.memo(DatePicker)

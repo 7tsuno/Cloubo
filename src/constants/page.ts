@@ -15,6 +15,10 @@ export const PAGE = {
     path: '/calculation',
     name: '精算',
   },
+  regularItem: {
+    path: '/regularItem',
+    name: '定期項目',
+  },
   error: {
     path: '/error',
     name: 'エラー',

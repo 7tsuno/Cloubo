@@ -10,6 +10,7 @@ import {
   Divider,
 } from '@material-ui/core'
 import { Page, PAGE } from 'constants/page'
+import { Repeat } from '@material-ui/icons'
 
 const useStyles = makeStyles((theme) => ({
   footer: {
@@ -19,6 +20,9 @@ const useStyles = makeStyles((theme) => ({
     height: '80px',
     paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(4),
+  },
+  button: {
+    minWidth: '0',
   },
 }))
 
@@ -33,15 +37,30 @@ const FooterArea: React.FC<FooterAreaProps> = ({ page, onChange }) => {
         showLabels
         className={classes.footerInner}
       >
-        <BottomNavigationAction value={PAGE.input.path} icon={<Create />} />
+        <BottomNavigationAction
+          value={PAGE.input.path}
+          icon={<Create />}
+          className={classes.button}
+        />
         <BottomNavigationAction
           value={PAGE.calender.path}
           icon={<EventNote />}
+          className={classes.button}
         />
-        <BottomNavigationAction value={PAGE.report.path} icon={<PieChart />} />
+        <BottomNavigationAction
+          value={PAGE.report.path}
+          icon={<PieChart />}
+          className={classes.button}
+        />
         <BottomNavigationAction
           value={PAGE.calculation.path}
           icon={<AttachMoney />}
+          className={classes.button}
+        />
+        <BottomNavigationAction
+          value={PAGE.regularItem.path}
+          icon={<Repeat />}
+          className={classes.button}
         />
       </BottomNavigation>
     </footer>

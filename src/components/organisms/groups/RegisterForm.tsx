@@ -1,4 +1,11 @@
-import { Button, makeStyles, Paper, TextField } from '@material-ui/core'
+import {
+  Button,
+  makeStyles,
+  Paper,
+  TextField,
+  Typography,
+} from '@material-ui/core'
+import { Update } from '@material-ui/icons'
 import Accordion from 'components/elements/display/Accordion'
 import DataList from 'components/elements/display/DataList'
 import Modal from 'components/elements/display/Modal'
@@ -28,10 +35,15 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(3),
     marginLeft: theme.spacing(1),
   },
+  resetDate: {
+    marginLeft: theme.spacing(-14),
+    marginTop: theme.spacing(1.5),
+  },
 }))
 
 const RegisterForm: React.FC<RegisterFormProps> = ({
   date,
+  notToday,
   category,
   price,
   memo,
@@ -46,11 +58,29 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
   handleClose,
   register,
   clearClick,
+  toToday,
 }) => {
   const classes = useStyles()
   return (
     <Paper className={classes.paper}>
-      <DatePicker label="日付" onChange={changeDate} value={date} />
+      <DatePicker
+        label="日付"
+        onChange={changeDate}
+        value={date}
+        accent={notToday}
+      />
+      {notToday && (
+        <Button
+          variant="outlined"
+          size="small"
+          color="default"
+          className={classes.resetDate}
+          startIcon={<Update />}
+          onClick={toToday}
+        >
+          今日に設定
+        </Button>
+      )}
       <div className={classes.category}>
         <SelectItem
           label="カテゴリ"
@@ -133,6 +163,11 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
                 }
               />
             )}
+            {notToday && (
+              <Typography variant="caption" color="error">
+                ※登録日付が今日ではありません
+              </Typography>
+            )}
           </>
         }
         action={
@@ -147,6 +182,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
 
 interface RegisterFormProps {
   date: dayjs.Dayjs
+  notToday: boolean
   category: Category
   price: string
   memo: string
@@ -161,6 +197,7 @@ interface RegisterFormProps {
   handleClose: () => void
   register: () => void
   clearClick: () => void
+  toToday: () => void
 }
 
 export default React.memo(RegisterForm)

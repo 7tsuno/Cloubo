@@ -1,5 +1,6 @@
 import React from 'react'
 import {
+  IconButton,
   makeStyles,
   Paper,
   Table,
@@ -12,6 +13,7 @@ import {
   withStyles,
 } from '@material-ui/core'
 import { Variant } from '@material-ui/core/styles/createTypography'
+import { Delete } from '@material-ui/icons'
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -31,6 +33,8 @@ const DataTable: React.FC<DataTableProps> = ({
   dense,
   headers,
   contents,
+  deletable,
+  clickDelete,
 }) => {
   const classes = useStyles()
   return (
@@ -57,6 +61,16 @@ const DataTable: React.FC<DataTableProps> = ({
                 {record.map((value, valueIndex) => (
                   <StyledTableCell key={valueIndex}>{value}</StyledTableCell>
                 ))}
+                {deletable && clickDelete && (
+                  <StyledTableCell>
+                    <IconButton
+                      color="inherit"
+                      onClick={() => clickDelete(index)}
+                    >
+                      <Delete />
+                    </IconButton>
+                  </StyledTableCell>
+                )}
               </TableRow>
             ))}
           </TableBody>
@@ -72,6 +86,8 @@ export interface DataTableProps {
   dense?: boolean
   headers?: Array<React.ReactNode>
   contents: Array<Array<string>>
+  deletable?: boolean
+  clickDelete?: (index: number) => void
 }
 
 export default React.memo(DataTable)

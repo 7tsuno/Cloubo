@@ -5,6 +5,7 @@ import Error from 'components/pages/Error'
 import Calendar from 'components/pages/Calendar'
 import Calculation from 'components/pages/Calculation'
 import Report from 'components/pages/Report'
+import RegularItem from 'components/pages/RegularItem'
 import Input from 'components/pages/Input'
 import { useAuth0 } from '@auth0/auth0-react'
 import { CssBaseline } from '@material-ui/core'
@@ -49,6 +50,9 @@ const App: React.FC = () => {
         </Route>
         <Route path={PAGE.report.path} exact>
           <Report />
+        </Route>
+        <Route path={PAGE.regularItem.path} exact>
+          <RegularItem />
         </Route>
         <Route>
           <Error message={'This is Unhandled Error.'} />
